@@ -343,17 +343,16 @@ export class Engine {
         });
 
         let date = new Date()
-        const earth = new THREE.Mesh(geometry, material);
+        let hours = ((date.getUTCHours()-12)*15)
+        let minutes = ((date.getUTCMinutes()*15)/60)
+        let seconds = ((date.getUTCSeconds()*15)/3600)
 
-        let hours = ((date.getHours()-12)*15)
-        let minutes = ((date.getMinutes()*15)/60)
-        let seconds = ((date.getSeconds()*15)/3600)
+        const earth = new THREE.Mesh(geometry, material);
         earth.rotation.y = this.deg2Rad(hours+minutes+seconds)
         
         group.add(earth);
         this.earth = group;
         this.scene.add(this.earth);
-
     }
 
     _findStationFromMesh = (threeObject) => {

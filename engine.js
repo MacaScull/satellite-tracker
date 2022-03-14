@@ -259,7 +259,7 @@ export class Engine {
     updateAllPositions = (date) => {
         if (!this.stations) return;
 
-        this.earth.rotation.y += this.deg2Rad(15/3600)
+        this.earth.rotation.y += this.deg2Rad(15/3600) // This code was added to perform earth rotation every second #MacaScull
 
         this.stations.forEach(station => {
             this.updateSatellitePosition(station, date);
@@ -348,7 +348,7 @@ export class Engine {
         let seconds = ((date.getUTCSeconds()*15)/3600)
 
         const earth = new THREE.Mesh(geometry, material);
-        earth.rotation.y = this.deg2Rad(hours+minutes+seconds)
+        earth.rotation.y = this.deg2Rad(hours+minutes+seconds) // This code was added to perform earth rotation upon initalisation #MacaScull
         
         group.add(earth);
         this.earth = group;

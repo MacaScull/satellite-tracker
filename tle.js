@@ -65,7 +65,7 @@ const getSolution = (station, date) => {
 
 
 // type: 1 ECEF coordinates   2: ECI coordinates
-export const getPositionFromTle = (station, date, type = 1) => {
+export const getPositionFromTle = (station, date, type = 2) => {
     if (!station || !date) return null;
 
     const positionVelocity = getSolution(station, date);

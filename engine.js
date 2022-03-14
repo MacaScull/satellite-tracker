@@ -250,9 +250,16 @@ export class Engine {
         station.mesh.position.set(pos.x, pos.y, pos.z);
     }
 
+
+    deg2Rad = (deg) => {
+        return (Math.PI/180) * deg
+    }
+
     
     updateAllPositions = (date) => {
         if (!this.stations) return;
+
+        this.earth.rotation.y += this.deg2Rad(15/3600)
 
         this.stations.forEach(station => {
             this.updateSatellitePosition(station, date);
@@ -335,20 +342,15 @@ export class Engine {
             map: textLoader.load(earthmap, this.render)
         });
 
+        let date = new Date()
         const earth = new THREE.Mesh(geometry, material);
-        group.add(earth);
 
-        // // Axis
-        // material = new THREE.LineBasicMaterial({color: 0xffffff});
-        // geometry = new THREE.Geometry();
-        // geometry.vertices.push(
-        //     new THREE.Vector3(0, -7000, 0),
-        //     new THREE.Vector3(0, 7000, 0)
-        // );
+        let hours = ((date.getHours()-12)*15)
+        let minutes = ((date.getMinutes()*15)/60)
+        let seconds = ((date.getSeconds()*15)/3600)
+        earth.rotation.y = this.deg2Rad(hours+minutes+seconds)
         
-        // var earthRotationAxis = new THREE.Line(geometry, material);
-        // group.add(earthRotationAxis);
-
+        group.add(earth);
         this.earth = group;
         this.scene.add(this.earth);
 
